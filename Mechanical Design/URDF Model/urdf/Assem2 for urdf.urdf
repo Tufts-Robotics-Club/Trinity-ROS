@@ -1,0 +1,267 @@
+<robot
+  name="Assem2 for urdf">
+  <link
+    name="main_body">
+    <inertial>
+      <origin
+        xyz="0 0.0017218 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.24976" />
+      <inertia
+        ixx="0.1"
+        ixy="0.1"
+        ixz="0.1"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/main_body.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 0.3" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/main_body.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left">
+    <inertial>
+      <origin
+        xyz="0.1656 -8.6736E-19 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.025635" />
+      <inertia
+        ixx="0.01"
+        ixy="0.01"
+        ixz="1"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/left.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_cont"
+    type="continuous">
+    <origin
+      xyz="-0.081549 0.01631 0"
+      rpy="0 0 0" />
+    <parent
+      link="main_body" />
+    <child
+      link="left" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      effort="0"
+      velocity="5" />
+  </joint>
+  <link
+    name="right">
+    <inertial>
+      <origin
+        xyz="-0.1706 0 2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.025635" />
+      <inertia
+        ixx="0.01"
+        ixy="0.01"
+        ixz="0.01"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_cont"
+    type="continuous">
+    <origin
+      xyz="0.086549 0.01631 0"
+      rpy="0 0 0" />
+    <parent
+      link="main_body" />
+    <child
+      link="right" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      effort="0"
+      velocity="5" />
+  </joint>
+  <link
+    name="front">
+    <inertial>
+      <origin
+        xyz="-2.2204E-16 -0.0074972 0.16764"
+        rpy="0 0 0" />
+      <mass
+        value="0.0091708" />
+      <inertia
+        ixx="5.4999E-08"
+        ixy="1.5265E-22"
+        ixz="0"
+        iyy="3.8827E-36"
+        iyz="0"
+        izz="5.4999E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/front.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/front.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_fixed"
+    type="fixed">
+    <origin
+      xyz="0 -0.003175 -0.08382"
+      rpy="0 0 0" />
+    <parent
+      link="main_body" />
+    <child
+      link="front" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="rear">
+    <inertial>
+      <origin
+        xyz="1.8041E-16 -0.0074972 -0.16764"
+        rpy="0 0 0" />
+      <mass
+        value="0.0091708" />
+      <inertia
+        ixx="5.4999E-08"
+        ixy="1.5265E-22"
+        ixz="9.8869E-36"
+        iyy="3.2142E-35"
+        iyz="-3.9497E-36"
+        izz="5.4999E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/rear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem2 for urdf/meshes/rear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_fixed"
+    type="fixed">
+    <origin
+      xyz="0 -0.003175 0.08382"
+      rpy="0 0 0" />
+    <parent
+      link="main_body" />
+    <child
+      link="rear" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
