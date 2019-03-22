@@ -1,0 +1,8 @@
+prefix=/home/saurav/Documents/Dev/TrinityBot/robot_ws/install
+
+Name: trin_base
+Description: Description of trin_base
+Version: 0.0.0
+Cflags: -I/home/saurav/Documents/Dev/TrinityBot/robot_ws/install/include
+Libs: -L/home/saurav/Documents/Dev/TrinityBot/robot_ws/install/lib 
+Requires: controller_manager diff_drive_controller hardware_interface roscpp std_msgs serial

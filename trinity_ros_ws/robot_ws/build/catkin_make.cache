@@ -1,0 +1,2 @@
+rplidar_ros:transform:trin_base
+-DCATKIN_DEVEL_PREFIX=/home/saurav/Documents/Dev/TrinityBot/robot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/saurav/Documents/Dev/TrinityBot/robot_ws/install -G Unix Makefiles
