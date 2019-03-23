@@ -1,7 +1,3 @@
-//Saurav Gyawali
-//Trinity Firefighting
-//Tufts Robotics Club
-
 #include "trin_base/trin_hardware.h"
 #include "controller_manager/controller_manager.h"
 #include "ros/callback_queue.h"
@@ -33,8 +29,7 @@ int main(int argc, char *argv[])
     TrinHardware hardware(nh);
     controller_manager::ControllerManager cm(&hardware, nh);
 
-    usleep(1000*1000);
-
+    ros::Duration(1).sleep();
     ros::CallbackQueue trin_queue;
     ros::AsyncSpinner trin_spinner(1, &trin_queue);
 

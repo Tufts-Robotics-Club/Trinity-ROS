@@ -1,9 +1,7 @@
 <launch>
-    <rosparam file="$(find trin_base)/config/hardware.yaml" command="load"/>
     <rosparam file="$(find trin_base)/config/controllers.yaml" command="load"/>
     <node name="trinity_base" pkg="trin_base" type="trin_base_node" output="screen"/>
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="trin_base_controller"/>
     <node name="lidar" pkg="rplidar_ros" type="rplidarNode" output="screen"/>
- 	<node pkg="tf" type="static_transform_publisher" name="transform_broadcaster" args="0 0 0 1 0 0 0.2 base_link laser_frame 100" />
-    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
-        args="trin_base_controller"/>
+    <node pkg="tf" type="static_transform_publisher" name="transform_broadcaster" args="0 0 0 1 0 0 0.2 base_link laser_frame 100" />
 </launch>

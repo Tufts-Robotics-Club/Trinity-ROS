@@ -1,12 +1,7 @@
-//Saurav Gyawali
-//Trinity Firefighting
-//Tufts Robotics Club
-
 #include "trin_base/trin_hardware.h"
-// #include "stdio.h"
 
 TrinHardware::TrinHardware(ros::NodeHandle nhi)
-{ 
+{
     nh = nhi;
     arduino.setPort("/dev/ttyACM0");
     arduino.open();
