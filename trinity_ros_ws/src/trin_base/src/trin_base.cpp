@@ -1,3 +1,7 @@
+//Saurav Gyawali
+//Trinity Firefighting
+//Tufts Robotics Club
+
 #include "trin_base/trin_hardware.h"
 #include "controller_manager/controller_manager.h"
 #include "ros/callback_queue.h"

@@ -1,3 +1,7 @@
+//Saurav Gyawali
+//Trinity Firefighting
+//Tufts Robotics Club
+
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
 

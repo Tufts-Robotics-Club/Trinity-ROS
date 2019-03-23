@@ -1,3 +1,7 @@
+//Saurav Gyawali
+//Trinity Firefighting
+//Tufts Robotics Club
+
 // C library headers
 #include <stdio.h>
 #include <string.h>
