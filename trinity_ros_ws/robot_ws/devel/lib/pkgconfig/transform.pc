@@ -1,8 +1,0 @@
-prefix=/home/saurav/Documents/Dev/TrinityBot/robot_ws/devel
-
-Name: transform
-Description: Description of transform
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/saurav/Documents/Dev/TrinityBot/robot_ws/devel/lib 
-Requires: geometry_msgs roscpp tf
