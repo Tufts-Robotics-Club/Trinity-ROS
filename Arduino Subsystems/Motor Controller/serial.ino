@@ -1,4 +1,5 @@
 #include "DualVNH5019MotorShield.h"
+#include <PID_v1.h>
 
 static const int8_t lookup_table[] = {0,-1,1,0,1,0,0,-1,-1,0,0,1,0,1,-1,0};
 const size_t data_size = 3;
@@ -19,6 +20,12 @@ double vel_l = 0;
 double vel_r = 0;
 int index = 0;
 uint16_t temp;
+double kp = 50 , ki = 100, kd = 10;
+double inputr = 0, outputr = 0, setpointr = 0;
+double inputl = 0, outputl = 0, setpointl = 0;
+
+PID velRPid(&inputr, &outputr, &setpointr, kp, ki, kd, REVERSE);
+PID velLPid(&inputl, &outputl, &setpointl, kp, ki, kd, REVERSE);
 
 DualVNH5019MotorShield md;
 
@@ -29,6 +36,12 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(19),lencoder,CHANGE);
     attachInterrupt(digitalPinToInterrupt(20),rencoder,CHANGE);
     attachInterrupt(digitalPinToInterrupt(21),rencoder,CHANGE);
+    velRPid.SetMode(AUTOMATIC);
+    velRPid.SetSampleTime(1);
+    velRPid.SetOutputLimits(-400, 400);
+    velLPid.SetMode(AUTOMATIC);
+    velLPid.SetSampleTime(1);
+    velLPid.SetOutputLimits(-400, 400);
 }
 
 void loop() {
@@ -40,8 +53,8 @@ void loop() {
         old_cl = lenc_count;
         old_cr = renc_count;
         old_t = micros();
-        vel_l = (change_el * 6413900.601)/dt;
-        vel_r = (change_er * 6413900.601)/dt;
+        vel_l = (change_el * 6413.900601)/dt;
+        vel_r = (change_er * 6413.900601)/dt;
         index = 0;
     }
     if (Serial.available() > 0) {
@@ -57,22 +70,28 @@ void loop() {
             enc[2] = (renc_count & 0xff0000) >> 16;
             enc[3] = (renc_count & 0xff000000) >> 24;
             Serial.write(enc, 4);
-            temp = vel_l;
+            temp = (double)1000 * vel_l;
             enc[0] = (temp & 0xff);
             enc[1] = (temp & 0xff00) >> 8;
-            temp = vel_r;
+            temp = (double)1000 * vel_r;
             enc[2] = (temp & 0xff);
             enc[3] = (temp & 0xff00) >> 8;
             Serial.write(enc, 4);
         } else {
-            motor_one = cmd[0] << 3;
-            motor_one |= ((cmd[1] & 0xe0) >> 5);
-            motor_two = (cmd[1] & 0x1f) << 5;
-            motor_two |= (cmd[2] & 0xf8) >> 3;
+            motor_one = cmd[0] << 4;
+            motor_one |= ((cmd[1] & 0xf0) >> 4);
+            motor_two = (cmd[1] & 0x0f) << 7;
+            motor_two |= (cmd[2] & 0xfe) >> 1;
+            setpointl = ((int)motor_one - 1024)/10;
+            setpointr = ((int)motor_two - 1024)/10;
         }
-    }
-    md.setM2Speed(motor_two - 400);
-    md.setM1Speed(motor_one - 400);
+    } 
+    inputl = vel_l;
+    inputr = vel_r;
+    velLPid.Compute();
+    velRPid.Compute();
+    md.setM2Speed(outputl);
+    md.setM1Speed(outputr);
 }
 void lencoder()
 {
