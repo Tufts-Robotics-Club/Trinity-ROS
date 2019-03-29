@@ -1,9 +1,13 @@
 #include "trin_base/trin_hardware.h"
 
+#define PORT "/dev/ttyACM0"
+#define BAUD_RATE 115200
+#define TIMEOUT 500
+
 TrinHardware::TrinHardware(ros::NodeHandle nhi)
 {
     nh = nhi;
-    arduino.setPort("/dev/ttyACM0");
+    arduino.setPort(PORT);
     
     try {
         arduino.open();
@@ -13,8 +17,8 @@ TrinHardware::TrinHardware(ros::NodeHandle nhi)
     }
 
     ROS_INFO("Connection established with Robot");
-    arduino.setBaudrate(115200);
-    serial::Timeout to = serial::Timeout::simpleTimeout(500);
+    arduino.setBaudrate(BAUD_RATE);
+    serial::Timeout to = serial::Timeout::simpleTimeout(TIMEOUT);
     arduino.setTimeout(to);
 
     hardware_interface::JointStateHandle left_joint("left_wheel", &pos[0], &vel[0], &eff[0]);
@@ -43,10 +47,10 @@ void TrinHardware::readFromHardware()
     uint8_t buf[12];
     arduino.write(temp, 3);
     arduino.read(buf, 12);
-    l = ((int32_t)buf[3] << 24) | ((int32_t)buf[2] << 16) | ((int32_t)buf[1] << 8) | ((int32_t)buf[0]);
-    r = ((int32_t)buf[7] << 24) | ((int32_t)buf[6] << 16) | ((int32_t)buf[5] << 8) | ((int32_t)buf[4]);
-    lv = ((int16_t)buf[9] << 8) | ((int16_t)buf[8]);
-    rv = ((int16_t)buf[11] << 8) | ((int16_t)buf[10]);
+    l = (int32_t)buf[3]<<24 | (int32_t)buf[2]<<16 | (int32_t)buf[1]<<8 | (int32_t)buf[0];
+    r = (int32_t)buf[7]<<24 | (int32_t)buf[6]<<16 | (int32_t)buf[5]<<8 | (int32_t)buf[4];
+    lv = (int16_t)buf[9] << 8 | (int16_t)buf[8];
+    rv = (int16_t)buf[11] << 8 | (int16_t)buf[10];
     pos[0] = (double)l * 0.006413900601;
     pos[1] = (double)r * 0.006413900601;
     vel[0] = (double)lv / 1000;
