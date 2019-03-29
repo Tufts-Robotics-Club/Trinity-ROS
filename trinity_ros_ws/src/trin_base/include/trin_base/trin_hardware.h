@@ -16,8 +16,8 @@ public:
     void readFromHardware();
     void writeToHardware();
 private:
-    hardware_interface::JointStateInterface jnt_state_interface;
-    hardware_interface::VelocityJointInterface jnt_vel_interface;
+    hardware_interface::JointStateInterface state_interface;
+    hardware_interface::VelocityJointInterface vel_interface;
     ros::NodeHandle nh;
     serial::Serial arduino;
     std::mutex WriteMutex;
