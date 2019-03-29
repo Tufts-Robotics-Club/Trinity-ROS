@@ -1,0 +1,18 @@
+<launch>
+    <remap from="cmd_vel" to="/trin_base_controller/cmd_vel"/>
+    <remap from="odom" to="/trin_base_controller/odom"/>
+    <arg name="map_file" default="$(find navs)/my_map.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+    <node pkg="tf" type="static_transform_publisher" name="transform_broadcaster2" args="0 0 0 0 0 0 map odom 100" />
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find navs)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find navs)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find navs)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find navs)/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find navs)/base_local_planner_params.yaml" command="load" />
+
+    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+ </node>
+
+</launch> 
