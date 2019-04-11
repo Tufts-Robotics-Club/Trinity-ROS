@@ -55,6 +55,7 @@ void TrinHardware::readFromHardware()
     pos[1] = (double)r * 0.006413900601;
     vel[0] = (double)lv / 1000;
     vel[1] = (double)rv / 1000;
+    // printf("%d %d\n",l, r);
     ReadMutex.unlock();
 }
 

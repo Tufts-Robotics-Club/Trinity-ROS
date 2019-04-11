@@ -20,12 +20,14 @@ double vel_l = 0;
 double vel_r = 0;
 int index = 0;
 uint16_t temp;
-double kp = 50 , ki = 100, kd = 10;
+double kp = 70 , ki = 15, kd = 10;
+// double kp = 70 , ki = , kd = 10;
+
 double inputr = 0, outputr = 0, setpointr = 0;
 double inputl = 0, outputl = 0, setpointl = 0;
 
-PID velRPid(&inputr, &outputr, &setpointr, kp, ki, kd, REVERSE);
-PID velLPid(&inputl, &outputl, &setpointl, kp, ki, kd, REVERSE);
+PID velRPid(&inputr, &outputr, &setpointr, kp, ki, kd, DIRECT);
+PID velLPid(&inputl, &outputl, &setpointl, kp, ki, kd, DIRECT);
 
 DualVNH5019MotorShield md;
 
@@ -46,7 +48,7 @@ void setup() {
 
 void loop() {
     index++;
-    if (index >= 35){
+    if (index >= 40){
         change_el = lenc_count - old_cl;
         change_er = renc_count - old_cr;
         dt = micros() - old_t;
@@ -78,12 +80,12 @@ void loop() {
             enc[3] = (temp & 0xff00) >> 8;
             Serial.write(enc, 4);
         } else {
-            motor_one = cmd[0] << 4;
-            motor_one |= ((cmd[1] & 0xf0) >> 4);
-            motor_two = (cmd[1] & 0x0f) << 7;
-            motor_two |= (cmd[2] & 0xfe) >> 1;
-            setpointl = ((int)motor_one - 1024)/10;
-            setpointr = ((int)motor_two - 1024)/10;
+            motor_two = cmd[0] << 4;
+            motor_two |= ((cmd[1] & 0xf0) >> 4);
+            motor_one = (cmd[1] & 0x0f) << 7;
+            motor_one |= (cmd[2] & 0xfe) >> 1;
+            setpointr = ((int)motor_one - 1024)/10;
+            setpointl = ((int)motor_two - 1024)/10;
         }
     } 
     inputl = vel_l;
