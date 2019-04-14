@@ -1,7 +1,14 @@
 <launch>
     <rosparam file="$(find trin_base)/config/controllers.yaml" command="load"/>
     <node name="trinity_base" pkg="trin_base" type="trin_base_node" output="screen"/>
+    <include file = "$(find rplidar_ros)/launch/rplidar.launch" />
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="trin_base_controller"/>
-    <node name="lidar" pkg="rplidar_ros" type="rplidarNode" output="screen"/>
-    <node pkg="tf" type="static_transform_publisher" name="transform_broadcaster" args="0 0 0 1 0 0 0.2 base_link laser_frame 100" />
+    <node pkg="tf" type="static_transform_publisher" name="transform_broadcaster" args="0 0 0.2 0 0 0 base_link laser 100" />
+    <node pkg="gmapping" type="slam_gmapping" name="gmapping">
+        <param name="base_frame" value="base_link"/>
+        <param name="odom_frame" value="odom" />
+        <param name="delta" value="0.05" />
+    </node>
+    <node name = "filter" pkg = "filter" type = "filter_node" output = "screen"/>
+    <include file = "$(find navs)/launch/yayyy.launch"/>
 </launch>

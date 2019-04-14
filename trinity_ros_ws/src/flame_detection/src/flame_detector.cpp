@@ -20,7 +20,7 @@ const std::string ANGLE_TOPIC = "/Trinity/flame/angle";
 const std::string FIREPOINT_TOPIC = "/Trinity/flame/point";
 const std::string INTENSITY_TOPIC = "/Trinity/flame/intensity";
 
-const float CAM_FOV = 54;
+const float CAM_FOV = 62.2;
 
 const int HUE_LOW = 0;
 const int HUE_HI = 32;

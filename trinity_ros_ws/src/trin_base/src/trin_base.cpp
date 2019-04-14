@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     ros::init(argc, argv, "trinity_base");
     ros::NodeHandle nh;
 
-    double control_frequency = 20.0;
+    double control_frequency = 30.0;
 
     TrinHardware hardware(nh);
     controller_manager::ControllerManager cm(&hardware, nh);

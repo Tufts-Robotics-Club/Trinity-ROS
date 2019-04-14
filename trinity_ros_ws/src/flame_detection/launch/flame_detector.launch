@@ -1,5 +1,0 @@
-<launch>
-
-  <include file="$(find flame_detection)/launch/picam.launch"/>
-  <node name="flame_detector" pkg="flame_detection" type="flame_detector" respawn="true"/>
-</launch>
