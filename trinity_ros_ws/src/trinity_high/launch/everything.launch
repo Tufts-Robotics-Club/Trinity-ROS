@@ -1,0 +1,6 @@
+<launch>
+      <include file = "$(find trin_base)/launch/trin_base.launch"/>
+
+      <node pkg="rosserial_python" type="serial_node.py" name = "flame_arduino" output="screen" args="/dev/ttyACM1"/>
+      <node pkg="trinity_high" type="main_trin.py" respawn="false" name="trin_main" output="screen"/>
+</launch>
